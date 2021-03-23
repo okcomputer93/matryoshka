@@ -1,0 +1,24 @@
+{
+    "name": "okcomputer/dolly",
+    "description": "Russian Doll Caching for Laravel",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "cache"
+    ],
+    "authors": [
+        {
+            "name": "Omar J",
+            "email": "okcomputer2393@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "9.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Okcomputer\\Dolly\\": "src/"
+        }
+    }
+}
