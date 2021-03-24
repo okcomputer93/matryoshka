@@ -4,6 +4,7 @@ namespace Okcomputer\Dolly;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Okcomputer\Dolly\BladeDirective;
 
 class DollyServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,9 @@ class DollyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(BladeDirective::class, function () {
+            return new BladeDirective();
+        });
     }
 
     /**
@@ -25,11 +28,11 @@ class DollyServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('cache', function ($expression) {
-            return "<?php if ( ! Okcomputer\Dolly\RussianCaching::setup({$expression})) { ?>";
+            return "<?php if ( ! app('Okcomputer\Dolly\BladeDirective')->setUp({$expression})) { ?>";
         });
 
         Blade::directive('endcache', function () {
-            return "<?php } echo Okcomputer\Dolly\RussianCaching::tearDown() ?>";
+            return "<?php } echo app('Okcomputer\Dolly\BladeDirective')->tearDown() ?>";
         });
     }
 }

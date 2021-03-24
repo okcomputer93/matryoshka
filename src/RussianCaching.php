@@ -3,39 +3,49 @@
 
 namespace Okcomputer\Dolly;
 
-
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use \Illuminate\Database\Eloquent\Model;
 
 class RussianCaching
 {
-    protected static $keys = [];
 
-    public static function setUp($model)
+    protected $cache;
+
+
+    public function __construct(Cache $cache) 
     {
-         static::$keys[] = $key = $model->getCacheKey();
+        $this->cache = $cache;
 
-        // turn on output buffering
-        ob_start();
-
-        // return a boolean that indicates if we have cached this model yet
-        return Cache::tags('views')->has($key);
     }
 
-    public static function tearDown()
+    public function put($key, $fragment)
     {
-        // fetch the cache key
-        $key = array_pop(static::$keys);
+        // var_dump($key);
+        $key = $this->normalizeCacheKey($key);
+        
+        return $this->cache
+            ->tags('views')
+            ->rememberForever($key, function () use ($fragment) {
+                return $fragment;
+            });
+    }
 
-        // save the output buffer contents to a variable, called $html
-        $html = ob_get_clean();
+    public function has($key)
+    {
+        $key = $this->normalizeCacheKey($key);
 
-        // cache it, if necessary, and echo out the html
+        return $this->cache
+            ->tags('views')
+            ->has($key);
+    }
 
-        // rememberForever:  retrieve an item from the cache or store it forever if it does not exist:
-        return Cache::tags('views')->rememberForever($key, function () use ($html) {
-            return $html;
-        });
+    protected function normalizeCacheKey($key) 
+    {
+         if ($key instanceof Model) {
+            return $key->getCacheKey();
+        }
 
+        return $key;
     }
 
 }

@@ -20,5 +20,15 @@
         "psr-4": {
             "Okcomputer\\Dolly\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/Testcase.php"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.0.x-dev",
+        "illuminate/database": "9.x-dev",
+        "illuminate/cache": "9.x-dev"
     }
 }
