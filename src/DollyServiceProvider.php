@@ -1,12 +1,14 @@
 <?php
 
-namespace Okcomputer\Dolly;
+namespace Okcomputer\Matryoshka;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Okcomputer\Dolly\BladeDirective;
+use Okcomputer\Matryoshka\BladeDirective;
+use Okcomputer\Matryoshka\RussianCaching;
+use Illuminate\Contracts\Cache\Repository as Cache;
 
-class DollyServiceProvider extends ServiceProvider
+class MatryoshkaServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -16,7 +18,11 @@ class DollyServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(BladeDirective::class, function () {
-            return new BladeDirective();
+            return new BladeDirective(
+                new RussianCaching(
+                    app(Cache::class)
+                )
+            );
         });
     }
 
@@ -28,11 +34,11 @@ class DollyServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('cache', function ($expression) {
-            return "<?php if ( ! app('Okcomputer\Dolly\BladeDirective')->setUp({$expression})) { ?>";
+            return "<?php if ( ! app('Okcomputer\Matryoshka\BladeDirective')->setUp({$expression})) { ?>";
         });
 
         Blade::directive('endcache', function () {
-            return "<?php } echo app('Okcomputer\Dolly\BladeDirective')->tearDown() ?>";
+            return "<?php } echo app('Okcomputer\Matryoshka\BladeDirective')->tearDown() ?>";
         });
     }
 }

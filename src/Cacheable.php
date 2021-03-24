@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Okcomputer\Dolly;
+namespace Okcomputer\Matryoshka;
 
 
 trait Cacheable

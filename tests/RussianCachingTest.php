@@ -1,6 +1,6 @@
 <?php
 
-use Okcomputer\Dolly\RussianCaching;
+use Okcomputer\Matryoshka\RussianCaching;
 
 class RussianCachingTest extends TestCase 
 {

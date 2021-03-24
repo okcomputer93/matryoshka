@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Okcomputer\Dolly;
+namespace Okcomputer\Matryoshka;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
 use \Illuminate\Database\Eloquent\Model;

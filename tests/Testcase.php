@@ -2,7 +2,7 @@
 
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Capsule\Manager as DB;
-use Okcomputer\Dolly\Cacheable;
+use Okcomputer\Matryoshka\Cacheable;
 
 abstract class TestCase extends PHPUnit\Framework\TestCase
 {

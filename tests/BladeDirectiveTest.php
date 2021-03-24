@@ -1,7 +1,7 @@
 <?php
 
-use Okcomputer\Dolly\BladeDirective;
-use Okcomputer\Dolly\RussianCaching;
+use Okcomputer\Matryoshka\BladeDirective;
+use Okcomputer\Matryoshka\RussianCaching;
 
 class BladeDirectiveTest extends TestCase 
 {

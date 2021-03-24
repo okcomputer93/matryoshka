@@ -1,5 +1,5 @@
 {
-    "name": "okcomputer/dolly",
+    "name": "okcomputer/matryoshka",
     "description": "Russian Doll Caching for Laravel",
     "license": "MIT",
     "keywords": [
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Okcomputer\\Dolly\\": "src/"
+            "Okcomputer\\Matryoshka\\": "src/"
         }
     },
     "autoload-dev": {
